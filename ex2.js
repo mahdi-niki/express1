@@ -158,17 +158,42 @@ const storeData = [
 const express = require("express");
 const app = express();
 app.get("/:category/:subcategory/:id", (req, res) => {
+  
+  
+  
   const category = storeData.find(
-    (category) => category === req.params.category
+    (ca) => ca.category === req.params.category
   );
-  const subcategory = storeData.find(
-    (subcategories) => subcategories === req.params.subcategory
-  );
-  const id = storeData.find((id) => id === Number(req.params.id));
-});
+  if(!category){
+    return res.status(404).send({ message: "did not find the category" });
+  }
 
+//------------------------------------------------------------------------------------------------
+  const subcategory = category.subcategories.find(
+    (sub) => sub.subcategory === req.params.subcategory);
+  if(!subcategory){
+    return res.status(404).send({ message: "did not find the subcategory" });
+  }
+//------------------------------------------------------------------------------------------------
+const product = subcategory.products.find(
+  (product) => product.id === Number(req.params.id)
+);
+
+  if(!product){
+    return res.status(404).send({ message: "did not find the product" });
+  }
+  res.send(product)
+  console.log("Don")
+});
+//-------------------------------------------------------------------------------------------------------
+app.use((req, res) => {
+  res.status(404).send({ message: "Not found" });
+});
 const port = 4000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+
+
 /*
 
 
