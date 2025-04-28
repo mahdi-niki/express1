@@ -182,6 +182,7 @@ const product = subcategory.products.find(
   if(!product){
     return res.status(404).send({ message: "did not find the product" });
   }
+//---------------------------------------------------------------------------------------------------
   res.send(product)
   console.log("Don")
 });
@@ -191,25 +192,3 @@ app.use((req, res) => {
 });
 const port = 4000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
-
-
-/*
-
-
-1- Import the express Package: Write code to import the express package into your program.
-
-Initialize an Express Application: Initialize an Express application by calling express() and store it in a variable named app.
-
-2- Create a Route to Retrieve a Product by Category, Subcategory, and ID: Set up a GET route in Express at the path /:category/:subcategory/:id. This route should extract the category, subcategory, and id parameters from the request.
-
-3- Search for the Category: Inside the route, search the storeData array for a category that matches the category parameter from the request.
-
-4- Search for the Subcategory: If the category is found, search within its subcategories for a subcategory that matches the subcategory parameter from the request.
-
-Search for the Product by ID: If the subcategory is found, search within its products for a product with an id that matches the id parameter from the request.
-
-5- Respond with the Product or Error Messages: If the product is found, send it in the response. If any step fails (i.e., category, subcategory, or product is not found), send an appropriate error message ("did not find the category," "did not find the subcategory," or "did not find the product").
-
-6- Start the Server: Set the application to listen on port 4000 and log a message to the console indicating that the server is running.
-*/

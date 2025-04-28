@@ -141,3 +141,26 @@ const products = [
 ];
 
 // answer
+const express = require("express");
+const app = express();
+app.get("/products", (req, res) => {
+  let filteredProducts = products;
+
+  if (req.query.maxPrice) {
+    const maxPrice = parseFloat(req.query.maxPrice);
+    filteredProducts = filteredProducts.filter(product => product.price <= maxPrice);
+  }
+
+  if (req.query.limit) {
+    const limit = parseInt(req.query.limit);
+    filteredProducts = filteredProducts.slice(0, limit);
+  }
+  res.json(filteredProducts);
+});
+
+//-------------------------------------------------------------------------------------------------------
+app.use((req, res) => {
+  res.status(404).send({ message: "Not found" });
+});
+const port = 4000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
